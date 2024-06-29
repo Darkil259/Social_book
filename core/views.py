@@ -286,7 +286,7 @@ def signup(request):
 
                 # Создаём профиль для нового пользователя
                 user_model = User.objects.get(username=username)
-                new_profile = Profile.objects.create(user=user_model, id_user=user_model.id)
+                new_profile = Profile.objects.create(user=user_model)
                 new_profile.save()
                 return redirect('settings')
         else:
