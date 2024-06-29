@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-y6on4&^y1+^c$5_h4eh-i2fz-c6jmagos9$5b!o!%8=08s#!tm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -73,24 +73,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'social_book.wsgi.application'
 
+if DEBUG:
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
-        conn_max_age=600
-    )
-}
+    DATABASES = {
+        'default': dj_database_url.config(
+            # Replace this value with your local database's connection string.
+            default='postgresql://postgres:postgres@localhost:5432/mysite',
+            conn_max_age=600
+        )
+    }
 
 
 # Password validation
